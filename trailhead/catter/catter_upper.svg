@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="124.01575"
+   height="124.01575"
+   id="svg3565">
+  <defs
+     id="defs3567" />
+  <metadata
+     id="metadata3570">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(0,-928.34644)"
+     id="layer1">
+    <path
+       d="M 62,0 C 27.753996,0 0,27.753996 0,62 0,96.246004 27.753996,124.03125 62,124.03125 96.246004,124.03125 124.03125,96.246004 124.03125,62 124.03125,27.753996 96.246004,0 62,0 z m 0,3.53125 c 32.289088,0 58.46875,26.179662 58.46875,58.46875 0,32.289088 -26.179662,58.46875 -58.46875,58.46875 C 29.710912,120.46875 3.53125,94.289088 3.53125,62 3.53125,29.710912 29.710912,3.53125 62,3.53125 z M 31.65625,42.5 c -2.598223,0 -4.6875,2.08927 -4.6875,4.6875 l 0,39.15625 c 0,2.5982 2.089277,4.65625 4.6875,4.65625 l 21,0 -1.53125,7 20.4375,0 -1.84375,-7 21.15625,0 c 2.598224,0 4.71875,-2.05805 4.71875,-4.65625 l 0,-39.15625 C 95.59375,44.58927 93.473224,42.5 90.875,42.5 l -59.21875,0 z M 62,50.4375 c 2.676307,-0.0143 5.21258,0.508204 7.03125,1.59375 4.570744,2.72824 1.026356,8.93635 -3.9375,6.125 -2.788876,-1.57953 -5.762631,-1.97013 -9.25,1.59375 -2.937183,3.00163 -3.872946,8.1511 0.09375,14.125 2.013214,3.032 5.828251,3.77745 9.875,1.59375 4.325121,-2.334 10.012039,2.42225 3.03125,6.28125 -5.604375,3.0982 -15.071418,1.97885 -18.5625,-2.46875 C 43.791552,71.01331 43.607782,62.36119 50.03125,55 52.665149,51.9816 57.539489,50.461326 62,50.4375 z"
+       transform="translate(0,928.34644)"
+       id="path3658"
+       style="color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:10;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+  </g>
+</svg>
