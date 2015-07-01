@@ -19,6 +19,10 @@ I've done designs based on the icons that I like the best.  If you don't see you
 [![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906230)
 
 ![Apex Testing](https://raw.githubusercontent.com/pcon/printing/master/trailhead/apex_testing/render.png)
+###[Apex Basics](https://github.com/pcon/printing/tree/master/trailhead/apex_basics)
+[![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906640)
+
+![Apex Basics](https://raw.githubusercontent.com/pcon/printing/master/trailhead/apex_basics/render.png)
 ###[Process Automation](https://github.com/pcon/printing/tree/master/trailhead/automation)
 [![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906234)
 
