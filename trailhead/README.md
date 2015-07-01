@@ -31,3 +31,7 @@ I've done designs based on the icons that I like the best.  If you don't see you
 [![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906234)
 
 ![Process Automation](https://raw.githubusercontent.com/pcon/printing/master/trailhead/automation/render.png)
+###[Reports & Dashboards](https://github.com/pcon/printing/tree/master/trailhead/reports_dahsboards)
+[![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906927)
+
+![Reports & Dashboards](https://raw.githubusercontent.com/pcon/printing/master/trailhead/reports_dashboards/render.png)
