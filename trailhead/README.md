@@ -12,8 +12,11 @@ I have tested the following printer settings with [Hatchbox 1.75mm PLA](http://w
 I've done designs based on the icons that I like the best.  If you don't see your favorite on here, look through the [issues](https://github.com/pcon/printing/issues) to see if someone has requested it.  If it's not there, file a new [issue](https://github.com/pcon/printing/issues/new) and I'll try to get to it ASAP.
 #Existing Coins
 ###[Catter](https://github.com/pcon/printing/tree/master/trailhead/catter)
+[![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906226)
 ![Catter](https://raw.githubusercontent.com/pcon/printing/master/trailhead/catter/render.png)
 ###[Apex Testing](https://github.com/pcon/printing/tree/master/trailhead/apex_testing)
+[![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906230)
 ![Apex Testing](https://raw.githubusercontent.com/pcon/printing/master/trailhead/apex_testing/render.png)
 ###[Process Automation](https://github.com/pcon/printing/tree/master/trailhead/automation)
+[![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906234)
 ![Process Automation](https://raw.githubusercontent.com/pcon/printing/master/trailhead/automation/render.png)

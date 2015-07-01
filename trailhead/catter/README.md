@@ -1,3 +1,4 @@
+[![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906226)
 #Catter
 ![Catter](https://raw.githubusercontent.com/pcon/printing/master/trailhead/catter/render.png)
 #Printer Settings

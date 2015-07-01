@@ -1,3 +1,4 @@
+[![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906234)
 #Process Automation
 ![Process Automation](https://raw.githubusercontent.com/pcon/printing/master/trailhead/automation/render.png)
 #Printer Settings
