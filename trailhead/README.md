@@ -13,10 +13,13 @@ I've done designs based on the icons that I like the best.  If you don't see you
 #Existing Coins
 ###[Catter](https://github.com/pcon/printing/tree/master/trailhead/catter)
 [![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906226)
+
 ![Catter](https://raw.githubusercontent.com/pcon/printing/master/trailhead/catter/render.png)
 ###[Apex Testing](https://github.com/pcon/printing/tree/master/trailhead/apex_testing)
 [![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906230)
+
 ![Apex Testing](https://raw.githubusercontent.com/pcon/printing/master/trailhead/apex_testing/render.png)
 ###[Process Automation](https://github.com/pcon/printing/tree/master/trailhead/automation)
 [![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906234)
+
 ![Process Automation](https://raw.githubusercontent.com/pcon/printing/master/trailhead/automation/render.png)
