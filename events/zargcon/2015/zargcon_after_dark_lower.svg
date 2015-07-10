@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   id="svg3565"
+   height="124.01575"
+   width="124.01575">
+  <defs
+     id="defs3567" />
+  <metadata
+     id="metadata3570">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(0,-928.34644)"
+     id="layer1">
+    <path
+       id="path3658-5-8-2"
+       transform="translate(0,928.34644)"
+       d="M 62 2.015625 C 28.874134 2.015625 2.015625 28.87413 2.015625 62 C 2.015625 95.12586 28.874134 121.98435 62 121.98438 C 95.125866 121.98438 121.98435 95.12586 121.98438 62 C 121.98438 28.87413 95.125866 2.015625 62 2.015625 z M 62.007812 8.3027344 A 7.0866141 7.0866141 0 0 1 69.09375 15.388672 A 7.0866141 7.0866141 0 0 1 62.007812 22.474609 A 7.0866141 7.0866141 0 0 1 54.921875 15.388672 A 7.0866141 7.0866141 0 0 1 62.007812 8.3027344 z M 45.597656 29.017578 L 81.039062 29.017578 C 85.027515 29.017578 87.191406 31.296247 87.191406 34.373047 C 87.191406 36.196347 86.622583 38.133199 85.710938 39.386719 L 55.96875 82.691406 L 74.65625 82.691406 L 74.65625 73.6875 C 74.65625 68.67344 76.708743 66.623047 81.039062 66.623047 C 85.027515 66.623047 86.964844 68.787506 86.964844 73.003906 L 86.964844 73.6875 L 86.28125 88.046875 C 86.053338 93.516775 86.052723 94.998047 79.785156 94.998047 L 42.976562 94.998047 C 39.102066 94.998047 36.824219 92.719378 36.824219 89.642578 C 36.824219 87.705378 37.506996 85.995687 38.304688 84.742188 L 68.275391 41.210938 L 51.068359 41.210938 L 50.726562 49.074219 C 50.498652 54.088269 48.903934 56.138672 44.345703 56.138672 C 40.357251 56.138672 38.419922 53.974182 38.419922 49.757812 L 38.419922 49.074219 L 38.988281 35.855469 C 39.216193 29.929769 39.444044 29.017578 45.597656 29.017578 z "
+       style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:10;marker:none;enable-background:accumulate;opacity:1" />
+    <g
+       id="text4199"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:18px;line-height:100%;font-family:BorisBlackBloxx;-inkscape-font-specification:'BorisBlackBloxx, Medium';text-align:end;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:end;fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+  </g>
+</svg>
