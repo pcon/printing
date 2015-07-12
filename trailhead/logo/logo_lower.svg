@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   id="svg2"
+   viewBox="0 0 450.00001 450.00001"
+   height="5in"
+   width="5in">
+  <defs
+     id="defs4" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer2">
+    <path
+       id="rect4144"
+       d="M 222.73828 33.816406 C 210.56441 38.952562 91.180726 75.881547 44.314453 223.25781 L 31.261719 223.25781 L 31.261719 288.375 L 29.830078 288.375 C 26.48277 312.94712 24.968725 339.81289 25.759766 369.1875 C 61.477644 388.16535 103.4953 401.97983 147.81641 409.73242 C 194.87445 401.32074 266.70727 376.55782 224.31445 344.39648 C 202.73006 328.02148 201.54163 312.47085 236.84961 310.84375 C 242.59656 310.57892 275.29775 311.77034 250.98242 297.48438 C 247.50454 295.44099 245.17379 293.27587 243.18164 290.04492 L 256.63672 290.04492 C 258.96919 292.44032 261.33578 294.99714 265.66992 298.73047 C 277.15625 308.62452 281.39015 318.14254 256.89844 322.61328 C 222.05738 328.9732 230.8977 328.65642 259.6582 341.56836 C 298.24007 358.88956 285.5352 404.07945 275.43164 414.74609 C 329.57265 409.39424 381.64767 394.07312 424.76953 367.16797 C 427.8402 346.56923 427.86065 319.74303 423.44922 290.04492 L 423.48047 290.04492 L 423.48047 223.25781 L 406.66797 223.25781 C 380.186 149.24116 324.70076 72.521462 222.73828 33.816406 z M 151.85156 125.20703 L 181.53516 163.36523 L 180.32031 178.38281 L 132.0293 183.78125 L 126.26953 167.66211 L 151.85156 125.20703 z M 285.87305 125.80469 L 311.88477 160.5918 L 302.16602 171.4668 L 262.81055 163.20898 L 263.37109 159.20508 L 285.87305 125.80469 z M 217.6875 153.14062 L 235.22461 173.86523 L 231.19922 181.55273 L 203.23047 179.7207 L 201.00586 170.05273 L 217.6875 153.14062 z "
+       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.65748024;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate" />
+  </g>
+</svg>
