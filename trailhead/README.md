@@ -11,22 +11,34 @@ I have tested the following printer settings with [Hatchbox 1.75mm PLA](http://w
 #Want More Coins?
 I've done designs based on the icons that I like the best.  If you don't see your favorite on here, look through the [issues](https://github.com/pcon/printing/issues) to see if someone has requested it.  If it's not there, file a new [issue](https://github.com/pcon/printing/issues/new) and I'll try to get to it ASAP.
 #Existing Coins
-###[Catter](https://github.com/pcon/printing/tree/master/trailhead/catter)
-[![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906226)
-
-![Catter](https://raw.githubusercontent.com/pcon/printing/master/trailhead/catter/render.png)
-###[Apex Testing](https://github.com/pcon/printing/tree/master/trailhead/apex_testing)
-[![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906230)
-
-![Apex Testing](https://raw.githubusercontent.com/pcon/printing/master/trailhead/apex_testing/render.png)
 ###[Apex Basics](https://github.com/pcon/printing/tree/master/trailhead/apex_basics)
 [![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906640)
 
 ![Apex Basics](https://raw.githubusercontent.com/pcon/printing/master/trailhead/apex_basics/render.png)
+###[Apex Testing](https://github.com/pcon/printing/tree/master/trailhead/apex_testing)
+[![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906230)
+
+![Apex Testing](https://raw.githubusercontent.com/pcon/printing/master/trailhead/apex_testing/render.png)
 ###[Apex Triggers](https://github.com/pcon/printing/tree/master/trailhead/apex_triggers)
 [![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906900)
 
 ![Apex Triggers](https://raw.githubusercontent.com/pcon/printing/master/trailhead/apex_triggers/render.png)
+###[Catter](https://github.com/pcon/printing/tree/master/trailhead/catter)
+[![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906226)
+
+![Chatter](https://raw.githubusercontent.com/pcon/printing/master/trailhead/chatter/render.png)
+###[Chatter](https://github.com/pcon/printing/tree/master/trailhead/chatter)
+[![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:950653)
+
+![Chatter](https://raw.githubusercontent.com/pcon/printing/master/trailhead/chatter/render.png)
+###[Data Modeling](https://github.com/pcon/printing/tree/master/trailhead/data_modeling)
+[![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:908162)
+
+![Data Modeling](https://raw.githubusercontent.com/pcon/printing/master/trailhead/data_modeling/render.png)
+###[Dreamforce](https://github.com/pcon/printing/tree/master/trailhead/dreamforce)
+[![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:950655)
+
+![Dreamforce](https://raw.githubusercontent.com/pcon/printing/master/trailhead/dreamforce/render.png)
 ###[Process Automation](https://github.com/pcon/printing/tree/master/trailhead/automation)
 [![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906234)
 
@@ -35,7 +47,3 @@ I've done designs based on the icons that I like the best.  If you don't see you
 [![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906927)
 
 ![Reports & Dashboards](https://raw.githubusercontent.com/pcon/printing/master/trailhead/reports_dashboards/render.png)
-###[Data Modeling](https://github.com/pcon/printing/tree/master/trailhead/data_modeling)
-[![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:908162)
-
-![Data Modeling](https://raw.githubusercontent.com/pcon/printing/master/trailhead/data_modeling/render.png)

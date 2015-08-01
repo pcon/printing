@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   id="svg3565"
+   height="124.01575"
+   width="124.01575"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="dreamforce_lower.svg">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1059"
+     id="namedview4705"
+     showgrid="false"
+     inkscape:zoom="1.9029841"
+     inkscape:cx="4.9921593"
+     inkscape:cy="62.007874"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3565" />
+  <defs
+     id="defs3567" />
+  <metadata
+     id="metadata3570">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <path
+     inkscape:connector-curvature="0"
+     style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#999999;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:10;marker:none;enable-background:accumulate"
+     d="M 62,2.015625 C 28.874134,2.015625 2.015625,28.87413 2.015625,62 c 0,15.980988 6.2629839,30.492506 16.453125,41.24414 l -0.412109,-0.69336 c 0.774964,-3.541999 3.414197,-6.57253 6.566406,-8.08203 -7.015208,-17.3471 16.879955,-36.276217 31.271484,-18.060547 6.170266,-6.30778 18.088535,-8.342201 26.179688,3.287109 4.128906,-2.635838 24.500011,-5.774671 27.945311,18.253907 C 117.53215,87.930572 121.98436,75.484884 121.98438,62 121.98438,28.87413 95.125866,2.015625 62,2.015625 Z"
+     id="path3658-5-8-2" />
+</svg>

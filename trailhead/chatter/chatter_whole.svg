@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="124.01575"
+   height="124.01575"
+   id="svg3565"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="chatter_whole.svg">
+  <defs
+     id="defs3567" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.959798"
+     inkscape:cx="53.907859"
+     inkscape:cy="63.960496"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="mm"
+     inkscape:window-width="1920"
+     inkscape:window-height="1059"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:object-nodes="false"
+     inkscape:snap-nodes="false" />
+  <metadata
+     id="metadata3570">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-928.34644)">
+    <path
+       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
+       d="M 62.007812 1.6503906 A 60.356613 60.356613 0 0 0 1.6503906 62.007812 A 60.356613 60.356613 0 0 0 62.007812 122.36523 A 60.356613 60.356613 0 0 0 122.36523 62.007812 A 60.356613 60.356613 0 0 0 62.007812 1.6503906 z M 64.320312 28.347656 C 68.763436 28.309709 72.830725 29.055871 75.376953 30.970703 C 84.466661 37.806403 77.726531 45.573608 70.0625 43.205078 C 59.379259 39.903468 56.459128 41.059809 53.927734 43.480469 C 41.688538 55.184249 48.360419 68.539509 51.785156 71.693359 C 58.103177 77.511759 67.760963 75.197681 69.955078 74.175781 C 82.705781 68.237501 81.706823 85.107431 74.289062 86.519531 C 66.19314 88.060731 51.912681 89.850103 42.5 82.408203 C 29.033037 71.761003 28.79454 43.111021 44.285156 33.300781 C 48.466317 30.652837 56.915107 28.410902 64.320312 28.347656 z "
+       transform="translate(0,928.34644)"
+       id="path4209" />
+    <path
+       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
+       d="M 62 0 C 27.753996 -9.4739031e-15 0 27.753996 0 62 C -9.4739031e-15 96.246004 27.753996 124.03125 62 124.03125 C 96.246004 124.03125 124.03125 96.246004 124.03125 62 C 124.03125 27.753996 96.246004 -1.8947806e-14 62 0 z M 64.320312 28.347656 C 68.763436 28.309709 72.830725 29.055871 75.376953 30.970703 C 84.466661 37.806403 77.726531 45.573608 70.0625 43.205078 C 59.379259 39.903468 56.459128 41.059809 53.927734 43.480469 C 47.192107 49.92144 46.196584 56.854221 47.222656 62.320312 C 61.705733 57.891079 80.772803 55.440053 90.738281 76.943359 C 96.732146 72.195359 103.31259 73.312465 109.75391 73.039062 C 104.75037 94.784762 85.272571 111 62.007812 111 C 34.950061 111 13.015627 89.065602 13.015625 62.007812 C 13.015625 59.807092 13.160246 57.639515 13.441406 55.515625 C 22.186634 55.797781 27.822038 58.909111 32.771484 62.642578 C 31.516349 51.340434 35.180232 39.06695 44.285156 33.300781 C 48.466317 30.652837 56.915107 28.410902 64.320312 28.347656 z "
+       transform="translate(0,928.34644)"
+       id="path4209-7" />
+  </g>
+</svg>
