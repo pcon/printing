@@ -35,10 +35,18 @@ I've done designs based on the icons that I like the best.  If you don't see you
 [![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:908162)
 
 ![Data Modeling](https://raw.githubusercontent.com/pcon/printing/master/trailhead/data_modeling/render.png)
+###[Data Security](https://github.com/pcon/printing/tree/master/trailhead/data_security)
+[![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:951175)
+
+![Data Security](https://raw.githubusercontent.com/pcon/printing/master/trailhead/data_security/render.png)
 ###[Dreamforce](https://github.com/pcon/printing/tree/master/trailhead/dreamforce)
 [![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:950655)
 
 ![Dreamforce](https://raw.githubusercontent.com/pcon/printing/master/trailhead/dreamforce/render.png)
+###[Leads and Opportunities](https://github.com/pcon/printing/tree/master/trailhead/leads_opportunities)
+[![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:951178)
+
+![Leads and Opportunities](https://raw.githubusercontent.com/pcon/printing/master/trailhead/leads_opportunities/render.png)
 ###[Process Automation](https://github.com/pcon/printing/tree/master/trailhead/automation)
 [![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906234)
 
