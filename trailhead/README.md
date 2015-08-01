@@ -26,7 +26,7 @@ I've done designs based on the icons that I like the best.  If you don't see you
 ###[Catter](https://github.com/pcon/printing/tree/master/trailhead/catter)
 [![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:906226)
 
-![Chatter](https://raw.githubusercontent.com/pcon/printing/master/trailhead/chatter/render.png)
+![Catter](https://raw.githubusercontent.com/pcon/printing/master/trailhead/catter/render.png)
 ###[Chatter](https://github.com/pcon/printing/tree/master/trailhead/chatter)
 [![Thingiverse](https://img.shields.io/badge/thingiverse-download-orange.svg?style=flat-square)](http://www.thingiverse.com/thing:950653)
 
