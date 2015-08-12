@@ -1,6 +1,8 @@
 // Gameboy Cartridge Holder version 2.0
 // Design by Patrick Connelly (patrick@deadlypenguin.com)
 
+// preview[view:south east, tilt:top diagonal]
+
 /* [Cartridge] */
 cartridge_type = "gba"; //[gba: Gameboy Advanced,gbc:Gameboy Classic,both: Both]
 number_of_cartridges = 10; //[5:15]
