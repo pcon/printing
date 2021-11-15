@@ -8,7 +8,7 @@ block_length = din_length() + WALL_WIDTH * 2;
 
 SLOT_DEPTH = 15;
 HOLE_DIAMETER = 6.5;
-HOLE_LENGTH = 25;
+HOLE_LENGTH = 60;
 hole_width = din_length() - HOLE_DIAMETER;
 
 hole_radius = HOLE_DIAMETER / 2;
