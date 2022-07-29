@@ -1,4 +1,10 @@
-BOX_WIDTH = 230;
+/*
+A socket case insert for the Pittsburgh 3/8 in 40 Pc socket set sold at Harbor Freight
+
+https://www.harborfreight.com/38-in-14-in-drive-sae-metric-socket-set-40-pc-62843.html
+*/
+
+BOX_WIDTH = 233;
 BOX_LENGTH = 100;
 BOX_DEPTH = 24;
 LID_DEPTH = 8;
@@ -78,10 +84,10 @@ ROW_SAE_DIAMETERS = [
     22.25,
     18.25,
     18.75,
+    17.25,
     16.25,
-    16,
-    16,
-    14,
+    16.25,
+    14.25,
     13.25,
     13.25,
     12,
@@ -129,7 +135,7 @@ ROW_SAE_DEPTH = [
 
 ROW_MIXED_DIAMETERS = [
     16,
-    13.25,
+    14.25,
     12,
     12,
     12,
@@ -168,7 +174,7 @@ HANDLE_OFFSET = 6;
 EXTENDER_DIAMETER = 17;
 EXTENDER_LENGTH = 72.5;
 
-ADAPTER_DIAMETER = 15.25;
+ADAPTER_DIAMETER = 16.25;
 ADAPTER_DEPTH = tall_socket_depth;
 
 handle_cutout_depth = total_depth - insert_depth;
