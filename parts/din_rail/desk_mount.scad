@@ -1,6 +1,7 @@
 use <din_utilities.scad>
 
 DEPTH = 20;
+RENDER_HELPER = 1;
 
 module base() {
     linear_extrude(DEPTH)
@@ -11,12 +12,17 @@ module base() {
         [100, 10],
         [35, 50],
         [10, 90],
-        [0, 90]
+        [0, 90],
+        [0, 52],
+        [-40, 10],
+        [-70, 10],
+        [-70, 0]
     ]);
 }
 
 module cutout() {
-    linear_extrude(DEPTH)
+    translate([0, 0, - RENDER_HELPER / 2])
+    linear_extrude(DEPTH + RENDER_HELPER)
     polygon([
         [33, 3],
         [97, 3],
@@ -24,12 +30,22 @@ module cutout() {
         [33, 47]
     ]);
     
-    linear_extrude(DEPTH)
+    translate([0, 0, - RENDER_HELPER / 2])
+    linear_extrude(DEPTH + RENDER_HELPER)
     polygon([
         [3, 3],
         [30, 3],
         [30, 47],
         [3, 47]
+    ]);
+    
+    translate([0, 0, - RENDER_HELPER / 2])
+    linear_extrude(DEPTH + RENDER_HELPER)
+    polygon([
+        [0, 3],
+        [0, 47],
+        [-35, 10],
+        [-35, 3]
     ]);
 }
 
@@ -56,7 +72,8 @@ module screw_hole() {
 }
 
 module rail() {
-    linear_extrude(DEPTH + 1)
+    translate([0, 0, - RENDER_HELPER / 2])
+    linear_extrude(DEPTH + RENDER_HELPER)
     translate([28, 55, 0])
     rotate([0, 0, 122])
     din_modified_slot();
