@@ -12,6 +12,7 @@ function base_tile_size() = BASE_TILE_SIZE;
 function peak_height() = PEAK_HEIGHT;
 
 function isX(direction) = (direction == "x");
+function v_max(v1, v2, index = 0, vm = []) = (v1 == undef) ? v2 : (v2 == undef) ? v1 : (len(v1) <= index) ? vm : v_max(v1, v2, index + 1, concat(vm, max(v1[index], v2[index])));
 
 module grid(width, depth, direction) {
     length = isX(direction) ? width : depth;

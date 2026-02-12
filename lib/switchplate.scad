@@ -11,11 +11,25 @@ PLATE_HEIGHT_MAX = 120;
 PLATE_SWITCH_WIDTH = 11;
 PLATE_SWITCH_HEIGHT = 30;
 PLATE_SWITCH_DEPTH = 18;
-//PLATE_SWITCH_OFFSET = 45;
-//PLATE_SWITCH_OFFSET_X = SWITCH_OFFSET / 2;
-
-PLATE_HOLE_DISTANCE_X = 45;
+PLATE_HOLE_DISTANCE_X = 46;
 PLATE_HOLE_DISTANCE_Y = 60;
+PLATE_SWITCH_SIZE = [
+    PLATE_SWITCH_WIDTH,
+    PLATE_SWITCH_HEIGHT,
+    PLATE_SWITCH_DEPTH
+];
+
+PLATE_ROCKER_WIDTH = 33.5;
+PLATE_ROCKER_HEIGHT = 67;
+PLATE_ROCKER_DEPTH = 4;
+PLATE_HOLE_DISTANCE_ROCKER_Y = 97;
+PLATE_HOLE_DISTANCE_ROCKER_X = 46;
+PLATE_ROCKER_SIZE = [
+    PLATE_ROCKER_WIDTH,
+    PLATE_ROCKER_HEIGHT,
+    PLATE_ROCKER_DEPTH
+];
+
 PLATE_HOLE_DIAMETER = 4;
 PLATE_HOLE_HEAD_DIAMETER = 7;
 PLATE_HOLE_BASE_HEIGHT = 1;
@@ -30,7 +44,7 @@ $fn = 32;
 function switch_min_width(
     count,
     radius = PLATE_RADIUS,
-    switch_size = [PLATE_SWITCH_WIDTH, PLATE_SWITCH_HEIGHT, PLATE_SWITCH_DEPTH],
+    switch_size = PLATE_SWITCH_SIZE,
     cover_wall_width = PLATE_WALL_WIDTH,
     distance_x = PLATE_HOLE_DISTANCE_X
  ) = (switch_size[0] + (cover_wall_width + radius) * 2) * count + (distance_x - switch_size[0] - cover_wall_width * 2) * (count - 1);
@@ -43,7 +57,7 @@ module plate_base(
     full_height = false,
     override_max_height = false,
     radius = PLATE_RADIUS,
-    switch_size = [PLATE_SWITCH_WIDTH, PLATE_SWITCH_HEIGHT, PLATE_SWITCH_DEPTH],
+    switch_size = PLATE_SWITCH_SIZE,
     cover_wall_width = PLATE_WALL_WIDTH,
     distance_x = PLATE_HOLE_DISTANCE_X,
     edges = TOP
@@ -116,11 +130,18 @@ module plate_screw_holes(
     distance_x = PLATE_HOLE_DISTANCE_X
 ) {
     xcopies(distance_x, count)
-    plate_screw_pair();
+    plate_screw_pair(
+        depth = depth,
+        d = d,
+        h = h,
+        head_d = head_d,
+        head_h = head_h,
+        distance_y = distance_y
+    );
 }
 
 module plate_switch_hole(
-    size = [PLATE_SWITCH_WIDTH, PLATE_SWITCH_HEIGHT, PLATE_SWITCH_DEPTH],
+    size = PLATE_SWITCH_SIZE,
     anchor = BOT,
     extra_depth = render_helper,
     radius = PLATE_RADIUS
@@ -138,7 +159,7 @@ module plate_switch_hole(
 module plate_switch_holes(
     count = 1,
     distance_x = PLATE_HOLE_DISTANCE_X,
-    size = [PLATE_SWITCH_WIDTH, PLATE_SWITCH_HEIGHT, PLATE_SWITCH_DEPTH],
+    size = PLATE_SWITCH_SIZE,
     anchor = BOT,
     extra_depth = render_helper,
     radius = PLATE_RADIUS
@@ -153,12 +174,20 @@ module plate_switch_holes(
 }
 
 module plate_switch_cover(
-    switch_size = [PLATE_SWITCH_WIDTH, PLATE_SWITCH_HEIGHT, PLATE_SWITCH_DEPTH],
+    switch_size = PLATE_SWITCH_SIZE,
     cover_wall_width = PLATE_WALL_WIDTH,
     radius = PLATE_RADIUS,
     anchor = BOT,
+    holder_size = undef
 ) {
-    cover_size = add_scalar(switch_size, cover_wall_width * 2) - [0, 0, cover_wall_width];
+    switch_size_for_base = (holder_size == undef) ?
+        switch_size :
+        v_max(switch_size, holder_size);
+    
+    cover_size = add_scalar(
+        switch_size_for_base,
+        cover_wall_width * 2
+    ) - [0, 0, cover_wall_width];
     diff("cover_remove")
     cuboid(
         cover_size,
@@ -180,18 +209,20 @@ module plate_switch_cover(
 
 module plate_switch_covers(
     count = 1,
-    switch_size = [PLATE_SWITCH_WIDTH, PLATE_SWITCH_HEIGHT, PLATE_SWITCH_DEPTH],
+    switch_size = PLATE_SWITCH_SIZE,
     cover_wall_width = PLATE_WALL_WIDTH,
     distance_x = PLATE_HOLE_DISTANCE_X,
     radius = PLATE_RADIUS,
     anchor = BOT,
+    holder_size = holder_size
 ) {
     xcopies(distance_x, count)
     plate_switch_cover(
         switch_size = switch_size,
         cover_wall_width = cover_wall_width,
         radius = radius,
-        anchor = anchor
+        anchor = anchor,
+        holder_size = holder_size
     );
 }
 
@@ -209,10 +240,18 @@ module plate(
     override_max_height = false,
     radius = PLATE_RADIUS,
     switch_holes = true,
-    switch_size = [PLATE_SWITCH_WIDTH, PLATE_SWITCH_HEIGHT, PLATE_SWITCH_DEPTH],
+    switch_size = PLATE_SWITCH_SIZE,
     switch_covers = true,
-    cover_wall_width = PLATE_WALL_WIDTH
+    cover_wall_width = PLATE_WALL_WIDTH,
+    holder_size = undef
 ) {
+    switch_size_for_base = (holder_size == undef) ?
+        switch_size :
+        v_max(
+            switch_size,
+            add_scalar(holder_size, cover_wall_width)
+        );
+    
     diff("remove")
     tag("base")
     plate_base(
@@ -222,7 +261,7 @@ module plate(
         full_height = full_height,
         override_max_height = override_max_height,
         radius = radius,
-        switch_size = switch_size,
+        switch_size = switch_size_for_base,
         cover_wall_width = cover_wall_width,
         distance_x = distance_x
     ) {
@@ -257,8 +296,27 @@ module plate(
                 switch_size = switch_size,
                 cover_wall_width = cover_wall_width,
                 distance_x = distance_x,
-                radius = radius
+                radius = radius,
+                holder_size = holder_size
             );
         }
     }
+}
+
+
+module plate_rocker(
+    count = 1,
+    switch_holes = true,
+    switch_covers = true,
+    holder_size = undef
+) {
+    plate(
+        count = count,
+        switch_holes = switch_holes,
+        switch_covers = switch_covers,
+        switch_size = PLATE_ROCKER_SIZE,
+        distance_x = PLATE_HOLE_DISTANCE_ROCKER_X,
+        distance_y = PLATE_HOLE_DISTANCE_ROCKER_Y,
+        holder_size = holder_size
+    );
 }
