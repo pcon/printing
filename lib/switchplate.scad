@@ -39,6 +39,10 @@ PLATE_RADIUS = 2;
 PLATE_WIDTH = 70;
 PLATE_HEIGHT = PLATE_HOLE_BASE_HEIGHT + PLATE_HOLE_HEAD_HEIGHT;
 
+PLATE_HOLDER_OFFSET = 2;
+PLATE_HOLDER_REMOTE = "REMOTE";
+PLATE_HOLDER_CIRCLE = "CIRCLE";
+
 $fn = 32;
 
 function switch_min_width(
@@ -188,6 +192,7 @@ module plate_switch_cover(
         switch_size_for_base,
         cover_wall_width * 2
     ) - [0, 0, cover_wall_width];
+    
     diff("cover_remove")
     cuboid(
         cover_size,
@@ -214,7 +219,7 @@ module plate_switch_covers(
     distance_x = PLATE_HOLE_DISTANCE_X,
     radius = PLATE_RADIUS,
     anchor = BOT,
-    holder_size = holder_size
+    holder_size = undef
 ) {
     xcopies(distance_x, count)
     plate_switch_cover(
@@ -223,7 +228,10 @@ module plate_switch_covers(
         radius = radius,
         anchor = anchor,
         holder_size = holder_size
-    );
+    ) {
+        attach(TOP, BOT)
+        children();
+    }
 }
 
 module plate(
@@ -290,7 +298,8 @@ module plate(
         }
         
         if (switch_covers) {
-            attach(TOP)
+            right_half()
+            attach(TOP, BOT)
             plate_switch_covers(
                 count = count,
                 switch_size = switch_size,
@@ -298,11 +307,17 @@ module plate(
                 distance_x = distance_x,
                 radius = radius,
                 holder_size = holder_size
-            );
+            ) {
+                attach(TOP, BOT)
+                children();
+            }
         }
+        //} else {
+            attach(TOP, BOT)
+            children();
+        //}
     }
 }
-
 
 module plate_rocker(
     count = 1,
@@ -318,5 +333,101 @@ module plate_rocker(
         distance_x = PLATE_HOLE_DISTANCE_ROCKER_X,
         distance_y = PLATE_HOLE_DISTANCE_ROCKER_Y,
         holder_size = holder_size
+    ) {
+        children();
+    }
+}
+
+module plate_holder_hole(
+    hole_shape = PLATE_HOLDER_REMOTE,
+    hole_size = undef,
+    hole_offset = PLATE_HOLDER_OFFSET,
+    cover_wall_width = PLATE_WALL_WIDTH,
+    radius = PLATE_RADIUS
+) {
+    assert(hole_size != undef, "hole_size needs to be set");
+    if (hole_shape == PLATE_HOLDER_CIRCLE) {
+        cyl(
+            l = cover_wall_width + render_helper * 2,
+            r = hole_size
+        );
+    }
+    
+    if (hole_shape == PLATE_HOLDER_REMOTE) {
+        back(cover_wall_width * 2)
+        cuboid(
+            hole_size,
+            rounding = radius,
+            edges = [
+                FWD + LEFT,
+                FWD + RIGHT
+            ]
+        );
+    }
+}
+
+module plate_holder(
+    dimensions,
+    hole = false,
+    hole_shape = PLATE_HOLDER_REMOTE,
+    hole_size = undef,
+    hole_offset = PLATE_HOLDER_OFFSET,
+    cover_wall_width = PLATE_WALL_WIDTH,
+    radius = PLATE_RADIUS,
+    anchor = BOT
+) {
+    shell_dimensions = [
+        dimensions[0] + cover_wall_width * 2,
+        dimensions[1] + cover_wall_width,
+        dimensions[2] + cover_wall_width
+    ];
+    
+    diff("holder_remove")
+    cuboid(
+        shell_dimensions,
+        anchor = anchor,
+        rounding = radius,
+        edges = "ALL",
+        except = BOT
+    ) {
+        back(cover_wall_width / 2 + render_helper)
+        attach(BOT, BOT, inside = true, shiftout = render_helper)
+        tag("holder_remove")
+        cuboid(
+            dimensions + [0, render_helper, render_helper],
+            rounding = radius,
+            edges = [ FWD, TOP ],
+            except = [BOT, TOP + BACK]
+        );
+
+        tag("holder_remove")
+        attach(TOP, BOT, inside = true, shiftout = render_helper)
+        plate_holder_hole(
+            hole_shape = hole_shape,
+            hole_size =
+                (hole_shape == PLATE_HOLDER_CIRCLE) ?
+                    hole_size :
+                    shell_dimensions - [
+                        cover_wall_width * 5,
+                        cover_wall_width * 2,
+                        0
+                    ],
+            hole_offset = hole_offset,
+            cover_wall_width = cover_wall_width,
+            radius = radius 
+        );
+    }
+}
+
+
+plate_rocker() {
+    attach(TOP, BOT)
+    cuboid(10, acho);
+    /*
+    plate_holder(
+        dimensions = [40, 40, 10],
+        hole_shape = PLATE_HOLDER_REMOTE,
+        hole_size = 5
     );
+    */
 }
