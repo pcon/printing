@@ -1,60 +1,117 @@
+use <../../lib/common.scad>
+include <../../lib/BOSL2/std.scad>
 use <din_utilities.scad>
 
+$fn = 32;
+
+RACK_HOLE_SPACE = 15.9022;
+ROUNDING = 3;
 WALL_WIDTH = 2;
-
-din_block_depth = din_width() + WALL_WIDTH * 2;
-block_depth = 6;
-block_length = din_length() + WALL_WIDTH * 2;
-
 SLOT_DEPTH = 15;
-HOLE_DIAMETER = 6.5;
 HOLE_LENGTH = 60;
-hole_width = din_length() - HOLE_DIAMETER;
 
+HOLE_DIAMETER = 6.5;
 hole_radius = HOLE_DIAMETER / 2;
 
-block_height = SLOT_DEPTH + WALL_WIDTH * 2 + HOLE_LENGTH + HOLE_DIAMETER * 2;
+din_block_depth = din_width() + WALL_WIDTH * 2;
+din_block_height = SLOT_DEPTH + WALL_WIDTH;
 
+block_depth = 6;
+block_height = din_block_height + WALL_WIDTH * 2 + HOLE_LENGTH + HOLE_DIAMETER;
+block_width = RACK_HOLE_SPACE * 2 + HOLE_DIAMETER + WALL_WIDTH * 2;
+
+top_height = HOLE_DIAMETER / 2 + WALL_WIDTH;
+
+render_helper = 0.1;
 
 module slot() {
-    linear_extrude(block_depth)
-    hull() {
-        scale([1/10, 1/10, 1/10])
-        circle(d = HOLE_DIAMETER * 10);
-        
-        translate([0, HOLE_LENGTH + hole_radius, 0])
-        scale([1/10, 1/10, 1/10])
-        circle(d = HOLE_DIAMETER * 10);
+    cuboid(
+        [
+            HOLE_DIAMETER,
+            block_depth + render_helper * 2,
+            HOLE_LENGTH + HOLE_DIAMETER
+        ],
+        rounding = HOLE_DIAMETER / 2,
+        edges = [
+            TOP,
+            BOT
+        ],
+        except = [
+            FRONT,
+            BACK
+        ]
+    );
+}
+
+module bolt_slots() {
+    tag("slots")
+    down(HOLE_LENGTH / 2)
+    xcopies(RACK_HOLE_SPACE, n = 3)
+    attach(TOP)
+    slot();
+}
+
+module din_slot() {
+    tag("slots")
+    fwd(block_depth + WALL_WIDTH)
+    down(render_helper)
+    attach(BOT, TOP, inside = true, align = BACK)
+    linear_sweep(din_path(), height = SLOT_DEPTH + render_helper);
+}
+
+module block() {    
+        cuboid(
+            [
+                block_width,
+                block_depth,
+                block_height - top_height
+            ],
+            anchor = BOT + BACK
+        ) {
+            attach(TOP, BOT)
+            cuboid(
+                [
+                    block_width,
+                    block_depth,
+                    top_height
+                ],
+                rounding = top_height,
+                edges = [
+                    TOP
+                ],
+                except = [
+                    FRONT,
+                    BACK
+                ]
+            );
+            
+            attach(FRONT, BACK, align = BOT)
+            cuboid(
+                [
+                    block_width,
+                    din_block_depth,
+                    din_block_height
+                ],
+                rounding = ROUNDING,
+                edges = [
+                    TOP,
+                    FRONT
+                ],
+                except = [
+                    BACK,
+                    BOT
+                ]
+            );
+            children();
+        }
+}
+
+module slotted_encap() {
+    diff("slots")
+    block() {
+        bolt_slots();
+        din_slot();
     }
 }
 
-module holes() {
-    center_offset = WALL_WIDTH * 2 + hole_radius;
-    min_z_offset = hole_radius + SLOT_DEPTH + WALL_WIDTH * 2;
-    
-    translate([center_offset, din_block_depth, min_z_offset])
-    rotate([90, 0, 0])
-    slot();
-    
-    translate([block_length - center_offset, din_block_depth, min_z_offset])
-    rotate([90, 0, 0])
-    slot();
-}
-
-module block() {
-    union() {
-        translate([0, din_block_depth - block_depth, 0])
-        cube([block_length, block_depth, block_height]);
-        
-        cube([block_length, din_block_depth, SLOT_DEPTH + WALL_WIDTH]);
-    }
-}
-
-difference() {
-    block();
-    holes();
-
-    translate([WALL_WIDTH, WALL_WIDTH, 0])
-    linear_extrude(SLOT_DEPTH)
-        din_modified_slot();
-}
+slotted_encap();
