@@ -1,8 +1,21 @@
-use <../lib/switchplate.scad>
+include <../lib/switchplate.scad>
 
-REMOTE_DEPTH = 22.5;
+REMOTE_DEPTH = 68.5;
 REMOTE_WIDTH = 45.5;
-REMOTE_HEIGHT = 68.5;
-REMOTE_LIP = 4;
+REMOTE_HEIGHT = 22.5;
 
-plate();
+REMOTE_DIMENSIONS = [
+    REMOTE_WIDTH,
+    REMOTE_DEPTH,
+    REMOTE_HEIGHT
+];
+
+switchplate(
+    type = SWITCH_TYPE_ROCKER,
+    remote_size = REMOTE_DIMENSIONS,
+    include_cover = false
+)
+switchplate_remoteholder(
+    switch_type = SWITCH_TYPE_ROCKER,
+    remote_size = REMOTE_DIMENSIONS
+);
