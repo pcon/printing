@@ -8,6 +8,7 @@ PLATE_SIDE_CLEARANCE = 5;
 PLATE_WALL_WIDTH = 1.5;
 PLATE_HEIGHT_MAX = 120;
 
+SWITCH_TYPE_SWITCH = "SWITCH";
 PLATE_SWITCH_WIDTH = 11;
 PLATE_SWITCH_HEIGHT = 30;
 PLATE_SWITCH_DEPTH = 18;
@@ -19,6 +20,7 @@ PLATE_SWITCH_SIZE = [
     PLATE_SWITCH_DEPTH
 ];
 
+SWITCH_TYPE_ROCKER = "ROCKER";
 PLATE_ROCKER_WIDTH = 33.5;
 PLATE_ROCKER_HEIGHT = 67;
 PLATE_ROCKER_DEPTH = 4;
@@ -33,7 +35,7 @@ PLATE_ROCKER_SIZE = [
 PLATE_HOLE_DIAMETER = 4;
 PLATE_HOLE_HEAD_DIAMETER = 7;
 PLATE_HOLE_BASE_HEIGHT = 1;
-PLATE_HOLE_HEAD_HEIGHT = 4;
+PLATE_HOLE_HEAD_HEIGHT = 3;
 
 PLATE_RADIUS = 2;
 PLATE_WIDTH = 70;
@@ -43,17 +45,25 @@ PLATE_HOLDER_OFFSET = 2;
 PLATE_HOLDER_REMOTE = "REMOTE";
 PLATE_HOLDER_CIRCLE = "CIRCLE";
 
+PLATE_HOLDER_REMOTE_LIP = 4;
+
 $fn = 32;
+
+function isSwitch(type) = type == SWITCH_TYPE_SWITCH;
+
+function getSwitchSize(type) = isSwitch(type) ?
+    PLATE_SWITCH_SIZE :
+    PLATE_ROCKER_SIZE;
 
 function switch_min_width(
     count,
     radius = PLATE_RADIUS,
-    switch_size = PLATE_SWITCH_SIZE,
+    type = SWITCH_TYPE_SWITCH,
     cover_wall_width = PLATE_WALL_WIDTH,
     distance_x = PLATE_HOLE_DISTANCE_X
- ) = (switch_size[0] + (cover_wall_width + radius) * 2) * count + (distance_x - switch_size[0] - cover_wall_width * 2) * (count - 1);
+ ) = let(switch_size = getSwitchSize(type)) (switch_size[0] + (cover_wall_width + radius) * 2) * count + (distance_x - switch_size[0] - cover_wall_width * 2) * (count - 1);
 
-module plate_base(
+module switchplate_base(
     count = 1,
     width = -1,
     depth = PLATE_HEIGHT,
@@ -61,43 +71,64 @@ module plate_base(
     full_height = false,
     override_max_height = false,
     radius = PLATE_RADIUS,
-    switch_size = PLATE_SWITCH_SIZE,
+    type = SWITCH_TYPE_SWITCH,
     cover_wall_width = PLATE_WALL_WIDTH,
     distance_x = PLATE_HOLE_DISTANCE_X,
-    edges = TOP
+    edges = TOP,
+    remote_size = undef
 ) {
-    base_width = width == -1 ?
-        switch_min_width(
-            count,
-            radius = radius,
-            switch_size = switch_size,
-            cover_wall_width = cover_wall_width,
-            distance_x = distance_x
-        ) : width;
-    base_height = override_max_height ? height : full_height ? PLATE_HEIGHT_MAX : min(PLATE_HEIGHT_MAX, height);
-
+    switch_size = getSwitchSize(type);
+    switch_min_width = switch_min_width(
+        count,
+        radius = radius,
+        type = type,
+        cover_wall_width = cover_wall_width,
+        distance_x = distance_x
+    );
+    
+    base_width = 
+        width == -1
+            ?
+            is_undef(remote_size)
+                ? switch_min_width
+                : max(
+                    switch_min_width,
+                    remote_size[0] +
+                    (cover_wall_width + radius) * 2
+                )
+            : width;
+    
+    base_height = override_max_height ?
+        height :
+        full_height ?
+            PLATE_HEIGHT_MAX :
+            min(PLATE_HEIGHT_MAX, height);
+    
     cuboid(
-        [base_width, base_height, depth],
+        [
+            base_width,
+            base_height,
+            depth
+        ],
         rounding = radius,
         edges = edges,
         anchor = BOT
-    ) {
-        children();
-    };
+    )
+    children();
 }
 
 module plate_screw_hole(
     depth = PLATE_HEIGHT,
-    d = PLATE_HOLE_DIAMETER,
+    hole_d = PLATE_HOLE_DIAMETER,
     h = PLATE_HOLE_BASE_HEIGHT,
     head_d = PLATE_HOLE_HEAD_DIAMETER,
     head_h = PLATE_HOLE_HEAD_HEIGHT,
     through_all = true
 ) {
     top_height = through_all ? depth - h + render_helper : head_h + render_helper;
-    
+
     union() {
-        cyl(h + render_helper * 2, d / 2, anchor = BOT);
+        cyl(h + render_helper * 2, hole_d / 2, anchor = BOT);
         
         up(h + render_helper)
         cyl(top_height, head_d / 2, anchor = BOT);
@@ -106,328 +137,155 @@ module plate_screw_hole(
 
 module plate_screw_pair(
     depth = PLATE_HEIGHT,
-    d = PLATE_HOLE_DIAMETER,
+    hole_d = PLATE_HOLE_DIAMETER,
     h = PLATE_HOLE_BASE_HEIGHT,
     head_d = PLATE_HOLE_HEAD_DIAMETER,
     head_h = PLATE_HOLE_HEAD_HEIGHT,
-    distance_y = PLATE_HOLE_DISTANCE_Y
+    type = SWITCH_TYPE_SWITCH
 ) {
+    distance_y = isSwitch(type) ?
+        PLATE_HOLE_DISTANCE_Y :
+        PLATE_HOLE_DISTANCE_ROCKER_Y;
     offset_y = distance_y / 2;
     
+    tag("remove")
     union() {
         fwd(offset_y)
-        plate_screw_hole(depth, d, h, head_d, head_h);
+        plate_screw_hole(depth, hole_d, h, head_d, head_h);
         
         back(offset_y)
-        plate_screw_hole(depth, d, h, head_d, head_h);
+        plate_screw_hole(depth, hole_d, h, head_d, head_h);
     }        
 }
 
-module plate_screw_holes(
-    count = 1,
-    depth = PLATE_HEIGHT,
-    d = PLATE_HOLE_DIAMETER,
-    h = PLATE_HOLE_BASE_HEIGHT,
-    head_d = PLATE_HOLE_HEAD_DIAMETER,
-    head_h = PLATE_HOLE_HEAD_HEIGHT,
-    distance_y = PLATE_HOLE_DISTANCE_Y,
-    distance_x = PLATE_HOLE_DISTANCE_X
+module switchplate_switchhole(
+    type = SWITCH_TYPE_SWITCH
 ) {
-    xcopies(distance_x, count)
-    plate_screw_pair(
-        depth = depth,
-        d = d,
-        h = h,
-        head_d = head_d,
-        head_h = head_h,
-        distance_y = distance_y
-    );
-}
-
-module plate_switch_hole(
-    size = PLATE_SWITCH_SIZE,
-    anchor = BOT,
-    extra_depth = render_helper,
-    radius = PLATE_RADIUS
-) {
-    down(extra_depth)
+    tag("remove")
     cuboid(
-        size + [0, 0, render_helper],
-        anchor = anchor,
-        rounding = radius,
-        edges = "ALL",
-        except = BOT
+        getSwitchSize(type) +
+        [0, 0, render_helper * 2]
     );
 }
 
-module plate_switch_holes(
-    count = 1,
-    distance_x = PLATE_HOLE_DISTANCE_X,
-    size = PLATE_SWITCH_SIZE,
-    anchor = BOT,
-    extra_depth = render_helper,
+module switchplate_switchcover(
+    type = SWITCH_TYPE_SWITCH,
+    cover_wall_width = PLATE_WALL_WIDTH,
     radius = PLATE_RADIUS
 ) {
-    xcopies(distance_x, count)
-    plate_switch_hole(
-        size = size,
-        anchor = anchor,
-        extra_depth = extra_depth,
-        radius = radius
-    );
-}
-
-module plate_switch_cover(
-    switch_size = PLATE_SWITCH_SIZE,
-    cover_wall_width = PLATE_WALL_WIDTH,
-    radius = PLATE_RADIUS,
-    anchor = BOT,
-    holder_size = undef
-) {
-    switch_size_for_base = (holder_size == undef) ?
-        switch_size :
-        v_max(switch_size, holder_size);
+    switch_size = getSwitchSize(type);
     
     cover_size = add_scalar(
-        switch_size_for_base,
+        switch_size,
         cover_wall_width * 2
     ) - [0, 0, cover_wall_width];
     
-    diff("cover_remove")
     cuboid(
         cover_size,
-        anchor = anchor,
+        anchor = BOT,
         rounding = radius,
         edges = "ALL",
         except = BOT
-    ) {
-        attach(BOT, BOT, inside = true, shiftout = render_helper)
-        tag("cover_remove")
-        cuboid(
-            switch_size + [0, 0, render_helper],
-            rounding = radius,
-            edges = "ALL",
-            except = BOT
-        );
-    }
+    )
+    attach(BOT, BOT, inside = true, shiftout = render_helper)
+    tag("remove")
+    cuboid(
+        switch_size + [0, 0, render_helper],
+        rounding = radius,
+        edges = "ALL",
+        except = BOT
+    )
+    children();
 }
 
-module plate_switch_covers(
-    count = 1,
-    switch_size = PLATE_SWITCH_SIZE,
+module switchplate_remoteholder(
+    remote_size = undef,
+    switch_type = SWITCH_TYPE_SWITCH,
     cover_wall_width = PLATE_WALL_WIDTH,
-    distance_x = PLATE_HOLE_DISTANCE_X,
-    radius = PLATE_RADIUS,
-    anchor = BOT,
-    holder_size = undef
-) {
-    xcopies(distance_x, count)
-    plate_switch_cover(
-        switch_size = switch_size,
-        cover_wall_width = cover_wall_width,
-        radius = radius,
-        anchor = anchor,
-        holder_size = holder_size
-    ) {
-        attach(TOP, BOT)
-        children();
-    }
-}
-
-module plate(
-    count = 1,
-    depth = PLATE_HEIGHT,
-    height = PLATE_HEIGHT_MAX,
-    hole_d = PLATE_HOLE_DIAMETER,
-    hole_h = PLATE_HOLE_BASE_HEIGHT,
-    head_d = PLATE_HOLE_HEAD_DIAMETER,
-    head_h = PLATE_HOLE_HEAD_HEIGHT,
-    distance_y = PLATE_HOLE_DISTANCE_Y,
-    distance_x = PLATE_HOLE_DISTANCE_X,
-    full_height = false,
-    override_max_height = false,
-    radius = PLATE_RADIUS,
-    switch_holes = true,
-    switch_size = PLATE_SWITCH_SIZE,
-    switch_covers = true,
-    cover_wall_width = PLATE_WALL_WIDTH,
-    holder_size = undef
-) {
-    switch_size_for_base = (holder_size == undef) ?
-        switch_size :
-        v_max(
-            switch_size,
-            add_scalar(holder_size, cover_wall_width)
-        );
-    
-    diff("remove")
-    tag("base")
-    plate_base(
-        count = count,
-        depth = depth,
-        height = height,
-        full_height = full_height,
-        override_max_height = override_max_height,
-        radius = radius,
-        switch_size = switch_size_for_base,
-        cover_wall_width = cover_wall_width,
-        distance_x = distance_x
-    ) {
-        tag("remove")
-        attach(BOT, BOT, inside = true, shiftout = render_helper)
-        plate_screw_holes(
-            count = count,
-            depth = depth,
-            d = hole_d,
-            h = hole_h,
-            head_d = head_d,
-            head_h = head_h,
-            distance_y = distance_y,
-            distance_x = distance_x
-        );
-        
-        if (switch_holes) {
-            tag("remove")
-            attach(BOT, BOT, inside = true, shiftout = render_helper)
-            plate_switch_holes(
-                count = count,
-                distance_x = distance_x,
-                size = switch_size,
-                radius = radius
-            );
-        }
-        
-        if (switch_covers) {
-            right_half()
-            attach(TOP, BOT)
-            plate_switch_covers(
-                count = count,
-                switch_size = switch_size,
-                cover_wall_width = cover_wall_width,
-                distance_x = distance_x,
-                radius = radius,
-                holder_size = holder_size
-            ) {
-                attach(TOP, BOT)
-                children();
-            }
-        }
-        //} else {
-            attach(TOP, BOT)
-            children();
-        //}
-    }
-}
-
-module plate_rocker(
-    count = 1,
-    switch_holes = true,
-    switch_covers = true,
-    holder_size = undef
-) {
-    plate(
-        count = count,
-        switch_holes = switch_holes,
-        switch_covers = switch_covers,
-        switch_size = PLATE_ROCKER_SIZE,
-        distance_x = PLATE_HOLE_DISTANCE_ROCKER_X,
-        distance_y = PLATE_HOLE_DISTANCE_ROCKER_Y,
-        holder_size = holder_size
-    ) {
-        children();
-    }
-}
-
-module plate_holder_hole(
-    hole_shape = PLATE_HOLDER_REMOTE,
-    hole_size = undef,
-    hole_offset = PLATE_HOLDER_OFFSET,
-    cover_wall_width = PLATE_WALL_WIDTH,
+    lip_size = PLATE_HOLDER_REMOTE_LIP,
     radius = PLATE_RADIUS
 ) {
-    assert(hole_size != undef, "hole_size needs to be set");
-    if (hole_shape == PLATE_HOLDER_CIRCLE) {
-        cyl(
-            l = cover_wall_width + render_helper * 2,
-            r = hole_size
-        );
-    }
+    switch_size = getSwitchSize(switch_type);
+    assert(is_vector(remote_size), "remote_size must be a vector");
     
-    if (hole_shape == PLATE_HOLDER_REMOTE) {
-        back(cover_wall_width * 2)
+    shell_dimensions = add_scalar(remote_size, PLATE_WALL_WIDTH) + [PLATE_WALL_WIDTH, 0, 0];
+    
+    diff("holder_remove")
+    cuboid(
+        shell_dimensions,
+        anchor = BOT,
+        rounding = PLATE_RADIUS,
+        edges = "ALL",
+        except = BOT
+    ) {
+        back(PLATE_WALL_WIDTH / 2 + render_helper)
+        attach(BOT, BOT, inside = true, shiftout = render_helper)
+        tag("holder_remove")
         cuboid(
-            hole_size,
+            remote_size + [0, render_helper, render_helper],
+            rounding = PLATE_RADIUS,
+            edges = [ FWD, TOP ],
+            except = [BOT, TOP + BACK]
+        );
+        
+        tag("holder_remove")
+        back(lip_size / 2 + cover_wall_width / 2)
+        down(cover_wall_width + render_helper)
+        attach(TOP, TOP)
+        cuboid(
+            [
+                remote_size[0] - lip_size * 2,
+                remote_size[1] - lip_size + render_helper,
+                cover_wall_width + render_helper * 2
+            ],
             rounding = radius,
             edges = [
-                FWD + LEFT,
-                FWD + RIGHT
+                FRONT + LEFT,
+                FRONT + RIGHT
             ]
         );
     }
 }
 
-module plate_holder(
-    dimensions,
-    hole = false,
-    hole_shape = PLATE_HOLDER_REMOTE,
-    hole_size = undef,
-    hole_offset = PLATE_HOLDER_OFFSET,
-    cover_wall_width = PLATE_WALL_WIDTH,
-    radius = PLATE_RADIUS,
-    anchor = BOT
+module switchplate(
+    type = SWITCH_TYPE_SWITCH,
+    include_cover = true,
+    remote_size = undef
 ) {
-    shell_dimensions = [
-        dimensions[0] + cover_wall_width * 2,
-        dimensions[1] + cover_wall_width,
-        dimensions[2] + cover_wall_width
-    ];
-    
-    diff("holder_remove")
-    cuboid(
-        shell_dimensions,
-        anchor = anchor,
-        rounding = radius,
-        edges = "ALL",
-        except = BOT
-    ) {
-        back(cover_wall_width / 2 + render_helper)
+    diff("remove")
+    switchplate_base(
+        type = type,
+        remote_size = remote_size
+    ){
         attach(BOT, BOT, inside = true, shiftout = render_helper)
-        tag("holder_remove")
-        cuboid(
-            dimensions + [0, render_helper, render_helper],
-            rounding = radius,
-            edges = [ FWD, TOP ],
-            except = [BOT, TOP + BACK]
+        switchplate_switchhole(
+            type = type
         );
-
-        tag("holder_remove")
-        attach(TOP, BOT, inside = true, shiftout = render_helper)
-        plate_holder_hole(
-            hole_shape = hole_shape,
-            hole_size =
-                (hole_shape == PLATE_HOLDER_CIRCLE) ?
-                    hole_size :
-                    shell_dimensions - [
-                        cover_wall_width * 5,
-                        cover_wall_width * 2,
-                        0
-                    ],
-            hole_offset = hole_offset,
-            cover_wall_width = cover_wall_width,
-            radius = radius 
+        
+        attach(BOT, BOT, inside = true, shiftout = render_helper)
+        plate_screw_pair(
+            type = type
         );
+    
+        if (include_cover) {
+            down(PLATE_HEIGHT)
+            attach(TOP, BOT)
+            switchplate_switchcover(
+                type = type
+            );
+        }
+        
+        attach(TOP, BOT)
+        children();
     }
 }
 
+REMOTE_DEPTH = 68.5;
+REMOTE_WIDTH = 45.5;
+REMOTE_HEIGHT = 22.5;
 
-plate_rocker() {
-    attach(TOP, BOT)
-    cuboid(10, acho);
-    /*
-    plate_holder(
-        dimensions = [40, 40, 10],
-        hole_shape = PLATE_HOLDER_REMOTE,
-        hole_size = 5
-    );
-    */
-}
+REMOTE_DIMENSIONS = [
+    REMOTE_WIDTH,
+    REMOTE_DEPTH,
+    REMOTE_HEIGHT
+];
