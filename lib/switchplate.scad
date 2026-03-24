@@ -249,6 +249,7 @@ module switchplate_remoteholder(
                 FRONT + RIGHT
             ]
         );
+        children();
     }
 }
 
@@ -291,13 +292,3 @@ module switchplate(
         children();
     }
 }
-
-REMOTE_DEPTH = 68.5;
-REMOTE_WIDTH = 45.5;
-REMOTE_HEIGHT = 22.5;
-
-REMOTE_DIMENSIONS = [
-    REMOTE_WIDTH,
-    REMOTE_DEPTH,
-    REMOTE_HEIGHT
-];
