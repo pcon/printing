@@ -5,7 +5,7 @@ include <./BOSL2/joiners.scad>
 include <./BOSL2/vectors.scad>
 
 PLATE_SIDE_CLEARANCE = 5;
-PLATE_WALL_WIDTH = 1.5;
+PLATE_WALL_WIDTH = 2.5;
 PLATE_HEIGHT_MAX = 120;
 
 SWITCH_TYPE_SWITCH = "SWITCH";
@@ -23,10 +23,10 @@ PLATE_SWITCH_SIZE = [
 SWITCH_TYPE_ROCKER = "ROCKER";
 PLATE_ROCKER_WIDTH = 33.5;
 PLATE_ROCKER_HEIGHT = 67;
-PLATE_ROCKER_DEPTH = 4;
+PLATE_ROCKER_DEPTH = 5;
 PLATE_HOLE_DISTANCE_ROCKER_Y = 97;
 PLATE_HOLE_DISTANCE_ROCKER_X = 46;
-PLATE_ROCKER_SIZE = [
+function plate_rocker_size() = [
     PLATE_ROCKER_WIDTH,
     PLATE_ROCKER_HEIGHT,
     PLATE_ROCKER_DEPTH
@@ -53,7 +53,7 @@ function isSwitch(type) = type == SWITCH_TYPE_SWITCH;
 
 function getSwitchSize(type) = isSwitch(type) ?
     PLATE_SWITCH_SIZE :
-    PLATE_ROCKER_SIZE;
+    plate_rocker_size();
 
 function switch_min_width(
     count,
@@ -159,13 +159,18 @@ module plate_screw_pair(
 }
 
 module switchplate_switchhole(
-    type = SWITCH_TYPE_SWITCH
+    type = SWITCH_TYPE_SWITCH,
+    depth = PLATE_HEIGHT
 ) {
+    switch_size = getSwitchSize(type);
+    hole_size = [
+        switch_size[0],
+        switch_size[1],
+        max(switch_size[2], depth) + render_helper * 2
+    ];
+    
     tag("remove")
-    cuboid(
-        getSwitchSize(type) +
-        [0, 0, render_helper * 2]
-    );
+    cuboid(hole_size);
 }
 
 module switchplate_switchcover(
@@ -250,21 +255,28 @@ module switchplate_remoteholder(
 module switchplate(
     type = SWITCH_TYPE_SWITCH,
     include_cover = true,
-    remote_size = undef
+    include_hole = true,
+    remote_size = undef,
+    depth = PLATE_HEIGHT
 ) {
     diff("remove")
     switchplate_base(
         type = type,
-        remote_size = remote_size
+        remote_size = remote_size,
+        depth = depth
     ){
-        attach(BOT, BOT, inside = true, shiftout = render_helper)
-        switchplate_switchhole(
-            type = type
-        );
+        if (include_hole) {
+            attach(BOT, BOT, inside = true, shiftout = render_helper)
+            switchplate_switchhole(
+                type = type,
+                depth = depth
+            );
+        }
         
         attach(BOT, BOT, inside = true, shiftout = render_helper)
         plate_screw_pair(
-            type = type
+            type = type,
+            depth = depth
         );
     
         if (include_cover) {

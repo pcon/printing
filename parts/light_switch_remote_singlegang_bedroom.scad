@@ -1,8 +1,8 @@
 include <../lib/switchplate.scad>
 
 REMOTE_DEPTH = 114;
-REMOTE_WIDTH = 42.5;
-REMOTE_HEIGHT = 15.5;
+REMOTE_WIDTH = 47.5;
+REMOTE_HEIGHT = 13.5;
 
 REMOTE_DIMENSIONS = [
     REMOTE_WIDTH,
