@@ -1,3 +1,6 @@
 [submodule "lib/BOSL2"]
 	path = lib/BOSL2
 	url = https://github.com/BelfrySCAD/BOSL2.git
+[submodule "lib/yapp"]
+	path = lib/yapp
+	url = https://github.com/mrWheel/YAPP_Box.git

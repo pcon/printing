@@ -8,13 +8,35 @@ PLATE_SIDE_CLEARANCE = 5;
 PLATE_WALL_WIDTH = 2.5;
 PLATE_HEIGHT_MAX = 120;
 
+PLATE_HOLE_DIAMETER = 4;
+PLATE_HOLE_HEAD_DIAMETER = 7;
+PLATE_HOLE_BASE_HEIGHT = 1;
+PLATE_HOLE_HEAD_HEIGHT = 3;
+
+PLATE_RADIUS = 2;
+PLATE_WIDTH = 70;
+PLATE_HEIGHT = PLATE_HOLE_BASE_HEIGHT + PLATE_HOLE_HEAD_HEIGHT;
+
+SWITCH_TYPE_NONE = "NONE";
+PLATE_HOLE_DISTANCE_NONE_X = 46;
+PLATE_HOLE_DISTANCE_NONE_Y = 83;
+PLATE_NONE_BUFFER = 2;
+PLATE_NONE_WIDTH = PLATE_HOLE_HEAD_DIAMETER;
+PLATE_NONE_HEIGHT = 0;
+PLATE_NONE_DEPTH = 0;
+function plate_none_size() = [
+    PLATE_NONE_WIDTH,
+    PLATE_NONE_HEIGHT,
+    PLATE_NONE_DEPTH
+];
+
 SWITCH_TYPE_SWITCH = "SWITCH";
 PLATE_SWITCH_WIDTH = 11;
 PLATE_SWITCH_HEIGHT = 30;
 PLATE_SWITCH_DEPTH = 18;
 PLATE_HOLE_DISTANCE_X = 46;
 PLATE_HOLE_DISTANCE_Y = 60;
-PLATE_SWITCH_SIZE = [
+function plate_switch_size() = [
     PLATE_SWITCH_WIDTH,
     PLATE_SWITCH_HEIGHT,
     PLATE_SWITCH_DEPTH
@@ -32,15 +54,6 @@ function plate_rocker_size() = [
     PLATE_ROCKER_DEPTH
 ];
 
-PLATE_HOLE_DIAMETER = 4;
-PLATE_HOLE_HEAD_DIAMETER = 7;
-PLATE_HOLE_BASE_HEIGHT = 1;
-PLATE_HOLE_HEAD_HEIGHT = 3;
-
-PLATE_RADIUS = 2;
-PLATE_WIDTH = 70;
-PLATE_HEIGHT = PLATE_HOLE_BASE_HEIGHT + PLATE_HOLE_HEAD_HEIGHT;
-
 PLATE_HOLDER_OFFSET = 2;
 PLATE_HOLDER_REMOTE = "REMOTE";
 PLATE_HOLDER_CIRCLE = "CIRCLE";
@@ -50,10 +63,14 @@ PLATE_HOLDER_REMOTE_LIP = 4;
 $fn = 32;
 
 function isSwitch(type) = type == SWITCH_TYPE_SWITCH;
+function isRocker(type) = type == SWITCH_TYPE_ROCKER;
+function isNone(type) = type == SWITCH_TYPE_NONE;
 
 function getSwitchSize(type) = isSwitch(type) ?
-    PLATE_SWITCH_SIZE :
-    plate_rocker_size();
+    plate_switch_size() :
+    isRocker(type) ?
+        plate_rocker_size() :
+        plate_none_size();
 
 function switch_min_width(
     count,
@@ -78,6 +95,7 @@ module switchplate_base(
     remote_size = undef
 ) {
     switch_size = getSwitchSize(type);
+    
     switch_min_width = switch_min_width(
         count,
         radius = radius,
@@ -145,7 +163,9 @@ module plate_screw_pair(
 ) {
     distance_y = isSwitch(type) ?
         PLATE_HOLE_DISTANCE_Y :
-        PLATE_HOLE_DISTANCE_ROCKER_Y;
+        isRocker(type) ?
+            PLATE_HOLE_DISTANCE_ROCKER_Y :
+            PLATE_HOLE_DISTANCE_NONE_Y;
     offset_y = distance_y / 2;
     
     tag("remove")
@@ -258,13 +278,19 @@ module switchplate(
     include_cover = true,
     include_hole = true,
     remote_size = undef,
-    depth = PLATE_HEIGHT
+    depth = PLATE_HEIGHT,
+    rounding = true,
+    width = -1,
+    edges_override = undef
 ) {
+    edges = !is_undef(edges_override) ? edges_override : rounding && !isNone(type) ? TOP : [];
     diff("remove")
     switchplate_base(
         type = type,
         remote_size = remote_size,
-        depth = depth
+        depth = depth,
+        edges = edges,
+        width = width
     ){
         if (include_hole) {
             attach(BOT, BOT, inside = true, shiftout = render_helper)
@@ -280,7 +306,7 @@ module switchplate(
             depth = depth
         );
     
-        if (include_cover) {
+        if (include_cover && !isNone(type)) {
             down(PLATE_HEIGHT)
             attach(TOP, BOT)
             switchplate_switchcover(
