@@ -1,51 +1,89 @@
 include <BOSL2/std.scad>
 
-GF_TOLERANCE=0.5;
-GF_SIZE=42.0;
-GF_HUNIT=7.0;
+GF_TOLERANCE = 0.5;
+GF_SIZE = 42.0;
+GF_HUNIT = 7.0;
+GF_WALL_THICKNESS = 0.95;
 
-function gridfinity_dimension(i)=i*GF_SIZE-GF_TOLERANCE;
+MAGNETS_NONE = "none";
+MAGNETS_DEFAULT = "default";
+MAGNETS_CORNERS = "corners";
+
+function gridfinity_dimension(i) = i * GF_SIZE - GF_TOLERANCE;
+function is_valid_magnet(magnets) = magnets == MAGNETS_NONE || magnets == MAGNETS_DEFAULT || magnets == MAGNETS_CORNERS;
 
 module gridfinity_bin(
     x, //width in units of the bin, non-integers are an extra piece
     y, //depth in units of the bin
     h, //height in units of the bin
-    extra_piece_direction=CENTER, //if there are fractional pieces which direction is it put, CENTER==None
-    magnets="none", //magnets configuration: "none", "default", "corners"
-    lip="default", //how the lip on top works: "none", "default" 
-    middle="default", //how the center is, "default", "solid", "label", "label_scoop"
-    wall_thickness=0.95, //the thickness of walls
+    extra_piece_direction = CENTER, //if there are fractional pieces which direction is it put, CENTER==None
+    magnets = MAGNETS_NONE,
+    lip = "default", //how the lip on top works: "none", "default" 
+    middle = "default", //how the center is, "default", "solid", "label", "label_scoop"
+    wall_thickness = GF_WALL_THICKNESS, //the thickness of walls
     center, //attachable param
     anchor,
-    spin=0,
-    orient=UP
+    spin = 0,
+    orient = UP
 ) {
-    bin_size = [ x*GF_SIZE-GF_TOLERANCE , y*GF_SIZE-GF_TOLERANCE ];
-    attachable(anchor=anchor, spin=spin, orient=orient, size=[bin_size[0], bin_size[1], GF_HUNIT]){
-        gridfinity_bin_bottom_connects(x,y,anchor=BOTTOM)
+    assert(is_valid_magnet(magnets), str("Invalid magnet option '", magnets, "'"));
+    
+    bin_size = [
+        gridfinity_dimension(x),
+        gridfinity_dimension(y),
+        GF_HUNIT
+    ];
+    
+    attachable(
+        anchor = anchor,
+        spin = spin,
+        orient = orient,
+        size = bin_size
+    ) {
+        gridfinity_bin_bottom_connects(x, y, anchor = BOTTOM)
         position(TOP)
-        gridfinity_bin_bottom_plate(x,y, orient=UP, anchor=BOTTOM)
+        gridfinity_bin_bottom_plate(x, y, orient = UP, anchor = BOTTOM)
         position(TOP)
-        gridfinity_bin_middle(x,y,h, lip=lip, middle=middle, orient=UP, anchor=BOTTOM)
+        gridfinity_bin_middle(x, y, h, lip = lip, middle = middle, orient = UP, anchor = BOTTOM)
         position(TOP)
-        gridfinity_bin_lip(x,y,h, lip=lip, orient=UP, anchor=BOTTOM);
+        gridfinity_bin_lip(x, y, h, lip = lip, orient = UP, anchor = BOTTOM);
         children();
     }
-};
+}
+
 module gridfinity_bin_bottom_plate(
     x,
     y,
-    h=1,
+    h = 1,
     center,
     anchor,
-    spin=0,
-    orient=UP
+    spin = 0,
+    orient = UP
 ){
-    bottom_plate_size = [ x*GF_SIZE-GF_TOLERANCE , y*GF_SIZE-GF_TOLERANCE ];
-    bottom_plate_h = h*GF_HUNIT - ( 0.8 + 1.8 + 2.15 );
-    attachable(anchor=anchor, spin=spin, orient=orient, size=[bottom_plate_size[0], bottom_plate_size[1], bottom_plate_h]){
-        zmove(-bottom_plate_h/2)
-        prismoid(bottom_plate_size, bottom_plate_size,  bottom_plate_h, rounding=4, anchor=BOTTOM);
+    bottom_plate_size = [
+        gridfinity_dimension(x),
+        gridfinity_dimension(y),
+        h * GF_HUNIT - ( 0.8 + 1.8 + 2.15 )
+    ];
+    prismoid_size = [
+        bottom_plate_size[0],
+        bottom_plate_size[1]
+    ];
+    
+    attachable(
+        anchor = anchor,
+        spin = spin,
+        orient = orient,
+        size = bottom_plate_size
+    ){
+        zmove(-bottom_plate_size[2] / 2)
+        prismoid(
+            size1 = prismoid_size,
+            size2 = prismoid_size,
+            h = bottom_plate_size[2],
+            rounding = 4,
+            anchor = BOTTOM
+        );
         children();
     };
     
