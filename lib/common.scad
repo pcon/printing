@@ -1,6 +1,14 @@
+include <BOSL2/std.scad>
+include <statics.scad>
+
 BASE_TILE_SIZE=20;
 BASE_WIDTH=5;
 PEAK_HEIGHT=3;
+
+WALL_HANGER_REAR_WALL_MIN = 3;
+WALL_HANGER_SCREW_HEAD_DIAMTER = 9;
+WALL_HANGER_SCREW_HEAD_HEIGHT = 4;
+WALL_HANGER_SCREW_DIAMETER = 5;
 
 function y_up() = [90, 0, 0];
 function x_up() = [90, 0, 90];
@@ -10,6 +18,7 @@ function tri_mid() = BASE_WIDTH / 2;
 function triangle() = [[0, 0],[BASE_WIDTH, 0],[tri_mid(), PEAK_HEIGHT]];
 function base_tile_size() = BASE_TILE_SIZE;
 function peak_height() = PEAK_HEIGHT;
+function default_wall_hanger_depth() = WALL_HANGER_REAR_WALL_MIN + WALL_HANGER_SCREW_HEAD_HEIGHT;
 
 function isX(direction) = (direction == "x");
 function v_max(v1, v2, index = 0, vm = []) = (v1 == undef) ? v2 : (v2 == undef) ? v1 : (len(v1) <= index) ? vm : v_max(v1, v2, index + 1, concat(vm, max(v1[index], v2[index])));
@@ -44,5 +53,67 @@ module base_block(width, depth, height, include_grid = true) {
         if (include_grid) {
             grid_slots(width, depth);
         }
+    }
+}
+
+module wall_hanger_screwhole(
+    head_diameter = WALL_HANGER_SCREW_HEAD_DIAMTER,
+    head_height = WALL_HANGER_SCREW_HEAD_HEIGHT,
+    body_diameter = WALL_HANGER_SCREW_DIAMETER,
+    depth = WALL_HANGER_REAR_WALL_MIN + WALL_HANGER_SCREW_HEAD_HEIGHT,
+    anchor = CENTER,
+    spin = 0,
+    orient = UP
+) {
+    body_height = depth - head_height;
+    up(head_height / 2)
+    cyl(
+        d = body_diameter,
+        h = body_height + render_helper,
+        anchor = anchor,
+        spin = spin,
+        orient = orient
+    ) {
+        up(render_helper)
+        attach(BOT, TOP)
+        cyl(
+            d = head_diameter,
+            h = head_height + render_helper * 2
+        );
+    }
+}
+
+module wall_hanger_screwholes(
+    count = 2,
+    spacing = 20,
+    head_diameter = WALL_HANGER_SCREW_HEAD_DIAMTER,
+    head_height = WALL_HANGER_SCREW_HEAD_HEIGHT,
+    body_diameter = WALL_HANGER_SCREW_DIAMETER,
+    depth = WALL_HANGER_REAR_WALL_MIN + WALL_HANGER_SCREW_HEAD_HEIGHT,
+    anchor = CENTER,
+    spin = 0,
+    orient = UP
+) {
+    attachable(
+        anchor,
+        spin,
+        orient,
+        size = [
+            spacing + head_diameter,
+            head_diameter,
+            depth
+        ]
+    ) {
+        xcopies(
+            n = count,
+            spacing = spacing
+        )
+        wall_hanger_screwhole(
+            head_diameter = head_diameter,
+            head_height = head_height,
+            body_diameter = body_diameter,
+            depth = depth
+        );
+        children();
     }
 }
