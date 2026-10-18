@@ -27,13 +27,15 @@ PIN_COUNT_X = 6;
 PIN_COUNT_Y = 6;
 PIN_SPACING = 25.4;
 
-PIN_HEIGHT = 20;
 PIN_GROUP = [2, 2];
 PIN_CASE_SPACING = 3;
 
 NAIL_DIAMETER = 2.2;
 NAIL_HEAD_DIAMETER = 5;
 NAIL_HEAD_HEIGHT = 1.5;
+NAIL_HEIGHT = 16;
+
+PIN_HEIGHT = PLATE_HEIGHT + NAIL_HEIGHT;
 
 LAYER_HEIGHT = .2;
 
@@ -51,7 +53,7 @@ $fn = $preview ? 32 : 128;
 
 pin_base_width = NAIL_HEAD_DIAMETER * 2;
 plate_edge_width = PIN_SPACING / 2;
-pin_group_diameter = pin_base_width * max(PIN_GROUP) + PIN_CASE_SPACING * (max(PIN_GROUP) - 1);
+pin_group_diameter = (sqrt(2) * (NAIL_HEAD_DIAMETER / 2 + 2) + NAIL_HEAD_DIAMETER / 2 + 2) * 2;
 
 total_width = (PIN_COUNT_X - 1) * PIN_SPACING + plate_edge_width * 2;
 total_depth = (PIN_COUNT_Y - 1) * PIN_SPACING + plate_edge_width * 2;
@@ -160,30 +162,33 @@ module pin_plate(magnet_label = "", anchor, spin, orient) {
     }
 }
 
-module pin_case_base(anchor, spin, orient) {
-    front_half()
+module pin_case(anchor, spin, orient) {
+    diff("remove_pincase")
     container_bottom(
         h = PIN_HEIGHT,
-        id = pin_group_diameter + 4,
+        id = 38,
         outside_percentage = .25,
-        inside_percentage = .8,
+        inside_percentage = .9,
         anchor = anchor,
         spin = spin,
         orient = orient
     ) {
+        tag("remove_pincase")
+        grid_copies(n = PIN_GROUP, spacing = pin_base_width + PIN_CASE_SPACING)
         attach(BOT, BOT, inside = true, shiftout = -2)
-        %cyl(
+        scale(1.04)
+        cyl(
             d = pin_base_width + $slop,
             h = PIN_HEIGHT
         );
     }
     
-    right(30)
+    right(50)
     container_lid(
         h = PIN_HEIGHT,
-        od = pin_group_diameter,
+        od = 38,
         outside_percentage = .75,
-        inside_percentage = .2,
+        inside_percentage = .1,
         anchor = anchor,
         spin = spin,
         orient = orient
@@ -204,5 +209,5 @@ if (CURRENT_PART == PART_ALL || CURRENT_PART == PART_BASE) {
 }
 
 if (CURRENT_PART == PART_PIN_CASE) {
-    pin_case_base(anchor = BOT);
+    pin_case(anchor = BOT);
 }
